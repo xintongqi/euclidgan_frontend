@@ -11,310 +11,329 @@ const start = (say, sendButton) => {
     
 };
 
-
-
 const state = (payload, say, sendButton) => {
     
+	/**
+	 * Rule Intro
+	 */
     // Rule Introduction
-    	if (payload.substring(2) === 'A0') {
+    if (payload.substring(2) === 'A0') {
 	    say(['Geometric construction games are games where you\'ll be asked to construct two-dimensional geometric shapes with a given range of tools',
 	    'There are several tools that you can use: straight edges that help you draw a line, compasses that help you draw a circle, etc.',
         'Each of them cost differently, and your goal is to find the solution that cost the least.']).then(
 	        () => { sendButton('Now are you ready to start the game?', [{title: 'Yes!', payload: payload.substring(0,2)+'A1'}]);
-	       });
+	    });
     }
 	
+	/**
+	 * Level 1
+	 */
     // Euclidea Alpha 1-2
-    	if (payload.substring(2) === 'A1') {
-   	 say(['Ok!', 'Now we\'ll begin the first warm-up problem.',
-        'In this question, you need to construct the perpendicular bysector of a line segment using straightedges and compasses',
-        'That is, construct the green line from the given red line segment',{
-		attachment: 'image',
-		url: 'https://i.postimg.cc/LXsSfFfz/1-2.png'
-	 }]).then(() => { sendButton('Are you able to crack it?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'},{title: 'Noooo...How to do it?', payload: payload.substring(0,2)+'A2'}]);  
+    if (payload.substring(2) === 'A1') {
+   		say(['Ok!', 'Now we\'ll begin the first warm-up problem.',
+			'In this question, you need to construct the perpendicular bysector of a line segment using straightedges and compasses',
+			'That is, construct the green line from the given red line segment',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/LXsSfFfz/1-2.png'
+		}]).then(() => { sendButton('Are you able to crack it?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'},{title: 'Noooo...How to do it?', payload: payload.substring(0,2)+'A2'}]);  
 		});
     }
 
 	// Euclidea Alpha 1-2 steps demostration
-     	if (payload.substring(2) === 'A2') {
-    say(['No worries. You\'ll learn from this exercise 😜', 
-        'An important feature of a perpendicular bisector is that the distance between any point on this line and the two endpoints of the line segment will be that same.', 
-        'How do we make sure this is true? Well, we can use the compasses to ensure this since all points on the circle have the same distance to the center.',
-        'Therefore, we can draw two circles with the same size first, and connect their intersections.',
-        'The steps are demonstrated in the short video below 👇',{
-		attachment: 'video',
-		url: 'https://i.postimg.cc/3r62NgDw/1-2.gif'
-	 }]).then(() => { sendButton('Now would like to move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'},{title: 'Hmm maybe a similar problem?', payload: payload.substring(0,2)+'A3'}]);   
-   	 });
+    if (payload.substring(2) === 'A2') {
+    	say(['No worries. You\'ll learn from this exercise 😜', 
+			'An important feature of a perpendicular bisector is that the distance between any point on this line and the two endpoints of the line segment will be that same.', 
+			'How do we make sure this is true? Well, we can use the compasses to ensure this since all points on the circle have the same distance to the center.',
+			'Therefore, we can draw two circles with the same size first, and connect their intersections.',
+			'The steps are demonstrated in the short video below 👇',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/3r62NgDw/1-2.gif'
+		}]).then(() => { sendButton('Now would like to move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'}]);   
+		});
+	}
+
+	/**
+	 * Level 2 + GAN
+	 */
+    // Eulicdea Alpha 1-4
+	if (payload.substring(2) === 'A3') {	
+		say(['Great! Now that you\'ve moved on to the next level! The upcoming problem will be a little bit more challenging 😈',
+        	'In this problem, you need to construct the inscribed circle of a square, given straightedges and compasses',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/s2DnwFMH/1-4.png'
+		}]).then(()  => {
+			sendButton('Easy?', [{title: 'Yes! Next level pls!', payload: payload.substring(0,2)+'A7'}, {title: 'Hmmm...', payload: payload.substring(0,2)+'A4'}]);
+		});  
+	}
+
+	// Euclidea Alpha 1-4 steps demostration
+	if (payload.substring(2) === 'A4') {
+		say(['Alrighttt! Here are the breakdowns for this problem. 👇', 
+			'Don\'t get frustrated. It\'s indeed harder than the previous one.',
+			'Think about the properties of the circle. The center of it is equally far from the four edges of the square.',
+			'Therefore the main task is to find the radius, which can be done with bisector',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/43g1FDmR/1-4.gif'
+		 }]).then(() => { 
+			 sendButton('Now would like to move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'},{title: 'Hmm maybe a similar problem?', payload: payload.substring(0,2)+'A3'}]);   
+		});
 	}
 
 	// GAN generated question
-     	if (payload.substring(2) === 'A3') {
-   	 say(['Sure! Practice makes perfect 🙌', 'I\'m glad that you\'ve found this hidden question, which is generated by a computer instead of a human being 🤩',
-        'In this problem, ....',{
+    if (payload.substring(2) === 'A5') {
+		say(['Sure! Practice makes perfect 🙌', 'I\'m glad that you\'ve found this hidden question, which is generated by a computer instead of a human being 🤩',
+			'In this problem, you are asked to construct the inscribed square of a rectangle, instead of a square',
+			'Keep in mind to use the bisector!',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/ZYdLPPbd/result-1-original.png'
+	 	}]).then(() => { sendButton('Do you want to see the steps?', [{title: 'Yes please.', payload: payload.substring(0,2)+'A6'}, {title: 'Got it this time!', payload: payload.substring(0,2)+'A7'}]);   
+	 	});  
+ 	}
+
+	// GAN generated steps demostration
+	if (payload.substring(2) === 'A6') {
+		say(['I\'m sure you have now understood much more about bisectors 😽', 
+			'Indeed. The solution is very similar to that of the last problem.',
+			'The steps are demonstrated in the short video below 👇',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/zBX2xyfg/gan1.gif'
+		}]).then(() => { sendButton('Got it?', [{title: 'Yes!', payload: payload.substring(0,2)+'A7'}]);   
+		});
+	}
+
+	/**
+	 * Level 3
+	 */
+	// Eulicdea Alpha 1-5
+	if (payload.substring(2) === 'A7') {	
+		say(['More challenging tasks coming 😈',
+        	'In this problem, you need to inscribe a rhombus in the rectangle so that they share a diagonal.',
+			'Be careful! It\'s not as trivial as you think it is 🥸',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/sxFJWxbS/1-5.png'
+		}]).then(()  => {
+			sendButton('Do you see the answer?', [{title: 'Easy!', payload: payload.substring(0,2)+'A9'}, {title: 'Err...No?', payload: payload.substring(0,2)+'A8'}]); 
+		});  
+	}
+
+	// Euclidea Alpha 1-5 steps demostration
+	if (payload.substring(2) === 'A8') {
+		say(['This one is a little tricky and easily fools you into using the compasses ❗️', 
+			'The tricky part about the rhombus is that, though the four edges are of equal length, this does not mean the angle is 60 degree',
+			'The correct way is to use the bisector 🔆',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/9FbGmLXy/1-5.gif'
+		 }]).then(() => { 
+			 sendButton('Ready for more challenges?', [{title: 'Yes!', payload: payload.substring(0,2)+'A9'}]);   
+		});
+	}
+
+	/**
+	 * Level 4
+	 */
+	// Eulicdea Alpha 1-6
+	if (payload.substring(2) === 'A9') {	
+		say(['Good job! Now we are on a new level 👏',
+        	'In this problem, you need to construct the insribed circle from a square, given straightedges and compasses',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/NFQNKL3M/1-6.png'
+		}]).then(()  => {
+			sendButton('Know the answer?', [{title: 'Yup!', payload: payload.substring(0,2)+'A11'}, {title: 'Solution plss 🤧', payload: payload.substring(0,2)+'A10'}]); 
+		});  
+	}
+
+	// Euclidea Alpha 1-6 steps demostration
+	if (payload.substring(2) === 'A10') {
+		say(['Solution in the short video as you wish 🫶',
+			'Although this problem still uses bisector, it is not as trivial since the points are not given.',
+			'Hopefully you can work out the next solution 🙃',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/Y2gG9bRh/1-6.gif'
+		 }]).then(() => { 
+			 sendButton('Now let\'s head off to the next level!', [{title: 'Let\'s gooooo!', payload: payload.substring(0,2)+'A11'}]);   
+		});
+	}
+
+	/**
+	 * Level 5 + GAN
+	 */
+	// Eulicdea Alpha 1-7
+	if (payload.substring(2) === 'A11') {	
+		say(['Remember we constructed an inscribed circle of a square previously?',
+        	'In this problem, you need to construct the insribed square of a circle, which is the reverse version of it 🤗',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/0N6xnG8L/1-7.png'
+		}]).then(()  => {
+			sendButton('Trivial?', [{title: 'Yess!', payload: payload.substring(0,2)+'15'}, {title: 'Solution 🫣', payload: payload.substring(0,2)+'A12'}]); 
+		});  
+	}
+
+	// Euclidea Alpha 1-7 steps demostration
+	if (payload.substring(2) === 'A12') {
+		say(['This one is not as complex as it seems 🤷‍♀️',
+			'The core here is to realize that the center of the circle is also the center of the square.',
+			'With that in mind, you only need straightedges and bisectors',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/0Q8nxnb4/1-7.gif'
+		 }]).then(() => { 
+			 sendButton('Now would like to move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'},{title: 'Hmm maybe a similar problem?', payload: payload.substring(0,2)+'A3'}]);   
+		});
+	}
+
+	// GAN generated question
+	if (payload.substring(2) === 'A13') {
+   	 say(['Yet another computer generated problem! See if you can crack it. It\'s related to the problem you just solved ✅',
+        'In this problem, you need to construct the inscribed octagon of the circle.',{
 		attachment: 'image',
-		url: 'https://i.postimg.cc/X7jwsr4V/'
-	 }]).then(() => { sendButton('Do you want to see the steps?', [{title: 'Yes please.', payload: payload.substring(0,2)+'A4'}, {title: 'Got it this time!', payload: payload.substring(0,2)+'A5'}]);   
+		url: 'https://i.postimg.cc/J0NbSBQq/gan2.png'
+	 }]).then(() => { sendButton('Difficult, huh?', [{title: 'Not at all!.', payload: payload.substring(0,2)+'A15'}, {title: 'Indeed 😵‍💫', payload: payload.substring(0,2)+'A14'}]);   
 	 });  
     }
 
     // GAN generated steps demostration
-    if (payload.substring(2) === 'A4') {
-        say(['No worries. You\'ll learn from this exercise 😜', 
-            'An important feature of a perpendicular bisector is that the distance between any point on this line and the two endpoints of the line segment will be that same.', 
-            'How do we make sure this is true? Well, we can use the compasses to ensure this since all points on the circle have the same distance to the center.',
-            'Therefore, we can draw two circles with the same size first, and connect their intersections.',
-            'The steps are demonstrated in the short video below 👇',{
+    if (payload.substring(2) === 'A14') {
+        say(['Don\'t worry if you coul\'t solve it - The computer didn\'t solve it on the first attempt either 😜', 
+			'In fact, the correct way of working on this complex problem is to decompose it into easier sub-problems.',
+			'To be more specific, an inscribed octagon can be constructed out of an inscribed square 🤞',{
             attachment: 'image',
-            url: 'https://i.postimg.cc/3r62NgDw/'
-         }]).then(() => { sendButton('Now would like to move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A5'}]);   
+            url: 'https://i.postimg.cc/VN9mrf4h/gan2.gif'
+         }]).then(() => { sendButton('Next problem?', [{title: 'Yes!', payload: payload.substring(0,2)+'A15'}]);   
             });
         }
 
-    // Eulicdea Alpha 1-3
-	if (payload.substring(2) === 'A5') {	
-		say('Great! Now that you\'ve moved on to the next level! The upcoming problem will be a little bit more challenging 😈',
-        'In this problem, you need to construct the insribed circle from a square, given straightedges and compasses').then(()  => {
-		sendButton('Ready for the quiz?', [{title: 'Ready!', payload: payload.substring(0,2)+'A5'}, {title: 'Review', payload: payload.substring(0,2)+'A0'}]); // returns to the beginning of stack, A0
-	});  
-	}
-
-	// quiz section
-	if (payload.substring(2) === '') {
-		say(['Quiz time!', 'What will the stack look like after performing these operations?', 
-		     'Push 🤠\n Push ✨\n Pop\n Push ✌️\n Push 😁']).then(() => { 
-		// answer choices 
-		sendButton('All the choices below are from arranged from top to bottom:', [{title: '🤠✨✌️😁', payload: payload.substring(0,4)+'a'}, {title: '🤠✌️😁', payload: payload.substring(0,4)+'b'}, {title: '😁✌️✨🤠', payload: payload.substring(0,4)+'c'}, {title: '😁✌️🤠', payload: payload.substring(0,4)+'d'}]);
-	});
-		}
-	// incorrect
-	if (payload.substring(2) === 'A5a') {
-		say('Incorrect. Stacks are first in last out, meaning 🤠 goes to the "bottom" of the stack, and anything pushed after goes on top. And the popping would remove the ✨!').then(() => {
-		sendButton('Next Question?', [{title: 'Ready!', payload: payload.substring(0,2) + 'A6'}]);
-	});
-	}
-	// incorrect
-	if (payload.substring(2) === 'A5b') {
-		say('Incorrect. Stacks are first in last out, meaning 🤠 goes to the "bottom" of the stack, and anything pushed after goes on top.').then(() => {
-		sendButton('Next Question?', [{title: 'Ready!', payload: payload.substring(0,2) + 'A6'}]);
-	});
-	}
-	// correct
-	if (payload.substring(2) === 'A5d') {
-		say('Correct!').then(() => {
-		sendButton('Next Question?', [{title: 'Ready!', payload: payload.substring(0,2) + 'A6'}]);
-	});
-	}
-	// incorrect
-	if (payload.substring(2) === 'A5c') {
-		say('Incorrect. Close, but you seem to have forgotten to pop ✨!').then(() => {
-		sendButton('Next Question?', [{title: 'Ready!', payload: payload.substring(0,2) + 'A6'}]);
-	});
-	}
-	// next quiz question
-	if (payload.substring(2) === 'A6') {
-		say('The stack now looks like (top)😁✌️🤠(bottom). What does popping the stack return?').then(()  => {
-		sendButton('Question', [{title: '😁', payload: payload.substring(0,4) + 'a'}, {title: '✌️', payload: payload.substring(0,4) + 'b'}, {title: '🤠', payload: payload.substring(0,4) + 'c'}]);
-	});
-	}
-	//correct
-	if (payload.substring(2) === 'A6a') {
-		say('Correct!').then(()  => {
-		sendButton('Done with stacks! ', [{title: 'yes ', payload: payload.substring(0,2)+'Af'}]);
-	});
-	}
-	// incorrect
-	if (payload.substring(2) === 'A6b') {
-		say('Incorrect. Stacks are first in last out, meaning the last in, or the top of the stack, is the first out. Popping would return and remove 😁 from the stack.').then(()  => {
-		sendButton('Done with stacks! ', [{title: 'yes ', payload: payload.substring(0,2)+'Af'}]);
-	});
-	}
-	// incorrect
-	if (payload.substring(2) === 'A6c') {
-		say('Incorrect. Stacks are first in last out, meaning the last in, or the top of the stack, is the first out. Popping would return and remove 😁 from the stack.').then(() => {
-		sendButton('Done with stacks! ', [{title: 'yes ', payload: payload.substring(0,2)+'Af'}]);
-	});
-	}
-	
-
-    //QUEUES (start with 'B')
-	if (payload.substring(2)==='B0'){
-		say ('A queue is a collection of entities that forms a “queue”. It follows the “First in first out” principle, meaning items can only be added at the end of the queue and removed at the beginning.');
-		say('Now think of a queue like the shirts that line up in your closet. You are only allowed to put a new shirt at the end of the queue and take out the first piece of cloth. Meanwhile, you can also peek at the start of the queue, which means you can take a look at the first shirt in your closet.'
-		).then(
-		() => {sendButton('Got it?', [{title: 'yes!', payload: payload.substring(0,2)+'B1'}]);
-	    });
-	}
-
-	// enqueue method
-    	if (payload.substring(2) === 'B1') {
-		say(['Ok!', 'Now, we will learn about the enqueue method. The enqueue operation allows you to input an item at the end of the queue. It is like hanging up one shirt at the end of the queue of clothes.']);
-		 say({
+	/**
+	 * Level 6
+	 */
+	// Eulicdea Beta 2-1
+	if (payload.substring(2) === 'A15') {	
+		say(['We are halfway through the journey! Hoooray! 🥳',
+			'Let\'s play some angle stuff starting from this level 😗',
+        	'In this problem, you need to construct the line that bisects the given angle.',{
 			attachment: 'image',
-			url: 'https://i.postimg.cc/nrTSfVVx/enqueue.jpg'
-		 }).then(() => { sendButton('Got it?', [{title: 'Yes!', payload: payload.substring(0,2)+'B2'}]);});
-	 }
+			url: 'https://i.postimg.cc/8P56G3wW/2-1.png'
+		}]).then(()  => {
+			sendButton('Any ideas?', [{title: 'Solved it!', payload: payload.substring(0,2)+'A17'}, {title: 'Hints?', payload: payload.substring(0,2)+'A16'}]); 
+		});  
+	}
 
-    	// dequeue method
-	if (payload.substring(2) === 'B2') {
-		say(['Ok!', 'The dequeue operation allows you to remove an item at the start of the queue. You can think of it as taking the first shirt out of your closet. However, be careful when you dequeue because the queue might be empty and there’s nothing you can take from it!', 
-		'BONUS concept: most implementation of dequeue actually returns the item which you removed. Think of this as you’re holding onto the shirt that you just took off the queue for other purposes (perhaps you want to “enqueue” it onto another queue!)', 
-		'Using the same queue as before, we perform the following operations.',{
+	// Euclidea Beta 2-1 steps demostration
+	if (payload.substring(2) === 'A16') {
+		say(['No worries. This is probably your first time playing with angles.', 
+			'We are here to help! 🤗',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/1twLfJHr/2-1.gif'
+		 }]).then(() => { 
+			 sendButton('More angle problems?', [{title: 'Sure!', payload: payload.substring(0,2)+'A17'}]);   
+		});
+	}
+
+	/**
+	 * Level 7
+	 */
+	// Eulicdea Beta 2-3
+	if (payload.substring(2) === 'A17') {	
+		say(['More angel problems!! 🤯',
+			'In order to solve this problem, you need to use an angular bisector that we learned from the last problem 👽',
+        	'In this problem, you need to construct an angle that is precisely 30 degree.',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/J0dgFv4m/2-3.png'
+		}]).then(()  => {
+			sendButton('Know how to use the bisector?', [{title: 'Yup!', payload: payload.substring(0,2)+'A19'}, {title: 'Review', payload: payload.substring(0,2)+'A18'}]);
+		});  
+	}
+
+	// Euclidea Beta 2-3 steps demostration
+	if (payload.substring(2) === 'A18') {
+		say(['Do \'30 degree\' and \'bisector\' remind you of anything?',
+			'That\'s right! 60 degree!',
+			'Do you know how to construct an angle of 60 degree?', 
+			'Yes, yes, with an equilateral triangle...',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/DZwxK6Nz/2-2.gif'
+		 }]).then(() => { 
+			 sendButton('Move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A19'}]);   
+		});
+	}
+
+	/**
+	 * Level 8
+	 */
+	// Eulicdea Beta 2-7
+	if (payload.substring(2) === 'A17') {	
+		say(['Before we enter the final problem, let\'s relax a little with an easier one.',
+			'This problem is easy if you know the trick 😘',
+        	'Please construct a line through the given point that cuts the rectangle into two parts of equal area.',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/Twvb2RQ1/2-7.png'
+		}]).then(()  => {
+			sendButton('Easy?', [{title: 'Yesss!', payload: payload.substring(0,2)+'A19'}, {title: 'Not really.', payload: payload.substring(0,2)+'A18'}]);
+		});  
+	}
+
+	// Euclidea Beta 2-7 steps demostration
+	if (payload.substring(2) === 'A18') {
+		say(['The trick is to find the center of the rectangle.',
+			'Why? ',
+			'Any way you cut the rectangle with a line, if it passes through its centre, then it will cut the rectangle into two equal halves. ', 
+			'So it can be solved in just three simple steps. 😺',{
+			attachment: 'image',
+			url: 'hhttps://i.postimg.cc/C1R20sPS/2-7.gif'
+		 }]).then(() => { 
+			 sendButton('Move on?', [{title: 'Yes!', payload: payload.substring(0,2)+'A19'}]);   
+		});
+	}
+
+	/**
+	 * Level 9
+	 */
+	// Sangaku introduction
+	if (payload.substring(2) === 'A19') {	
+		say(['Before we move on, have you ever heard of Japanese Temple Geometry? Or Sangaku?',
+			'In fact, Japanese temple geometry are geometry problems written on wooden tablets put in Shrine Temples.',
+			'uring the Edo period, people from all social classes enjoyed solving geometry problems and invented them as a means of communication with other experts.',
+			'Sangaku are perishable, and many of them have decayed and could not survive until nowadays.',
+			'It is now considered one of the thirty-eight Japanese cultural heritages under historical contexts.',
+			'A sample Japanese temple geometry problem is shown here.',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/NMq8z8HK/sangaku.png'
+		}]).then(()  => {
+			sendButton('Ready for the final problem?', [{title: 'Ready!', payload: payload.substring(0,2)+'A20'}]); 
+		});  
+	}
+
+	// GAN generated question
+	if (payload.substring(2) === 'A20') {
+   	 say(['The problem is here!',
+	 	'Look how similar the problem is to the Sangaku tablet we just showed you!',{
 		attachment: 'image',
-		url: 'https://i.postimg.cc/WbC6FqHK/dequeue.jpg'
-		}]).then(() => { sendButton('Got it?', [{title: 'Yes!', payload: payload.substring(0,2)+'B3'}]);   
-	});
-    	}
-    
-    	// peek method
-    	if (payload.substring(2) === 'B3') {
-		say(['Ok!', 'The peek operation allows you to get the value of the next element to be dequeued, without dequeuing it. Think of it as taking a look at the first shirt in your closet without taking it out.',{
-		attachment: 'image',
-		url: 'https://i.postimg.cc/mD1TrqzK/peek.jpg'
-		}]).then(() => { sendButton('Got it?', [{title: 'Yes!', payload: payload.substring(0,2)+'B4'}]);   
-	});  
-    	}
-    
-    	// ready for quiz?    
-	if (payload.substring(2) === 'B4') {	
-		say('If you combine the example operations from peek, enqueue, and dequeue, you would have an example of multiple operations done on a single queue.').then(() => {
-		sendButton('Ready for the quiz?', [{title: 'Ready!', payload: payload.substring(0,2)+'B5'}, {title: 'Review', payload: payload.substring(0,2)+'B0'}]); // returns to the beginning of queue, B0
-	});  
-    	}
-    
-    	// quiz section
-	if (payload.substring(2) === 'B5') {
-		say(['Quiz time!', 'What will the queue look like after performing these operations?', 
-		     'Enqueue 👍\n Enqueue ✨\n Dequeue\n Enqueue 😁\n Dequeue\n Enqueue 🎉\n']).then(() => { 
-		sendButton('All the choices below are from arranged from front to back:', [{title: '😁🎉', payload: payload.substring(0,4)+'a'}, {title: '👍🎉', payload: payload.substring(0,4)+'b'}]);
-	});
-    	}
-    
-    	// correct
-	if (payload.substring(2) === 'B5a') {
-		say('Correct!').then(() => {
-		sendButton('Next Question?', [{title: 'Ready!', payload: payload.substring(0,2) + 'B6'}]);
-	});
-	}
-
-	// incorrect
-	if (payload.substring(2) === 'B5b') {
-		say('Incorrect. Queuess are first in first out, meaning 👍 goes to the front of the queue, and anything enqueued after go to the back. And the first dequeue would remove 👍!').then(() => {
-		sendButton('Next Question?', [{title: 'Ready!', payload: payload.substring(0,2) + 'B6'}]);
-	});
-	}
-    
-	// next quiz question
-	if (payload.substring(2) === 'B6') {
-		say('The queue now is (front)😁👍🎉(back). What does the queue look like after two dequeues?').then(() => {
-		sendButton('Question', [{title: '🎉', payload: payload.substring(0,4) + 'a'}, {title: 'There is nothing left.', payload: payload.substring(0,4) + 'b'}, {title: '😁', payload: payload.substring(0,4) + 'c'}]);
-	});
-	}
-	// correct
-	if (payload.substring(2) === 'B6a') {
-		say('Correct!').then(() => {
-		sendButton('Done with queues! ', [{title: 'yes ', payload: payload.substring(0,2)+'Bf'}]);
-	});
-	}
-
-	// incorrect
-	if (payload.substring(2) === 'B6b') {
-		say('Incorrect. We only dequeued twice while there are three emojis in the queue. meaning there has to be one emoji left in the queue. ').then(() => {
-		sendButton('Done with queues! ', [{title: 'yes ', payload: payload.substring(0,2)+'Bf'}]);
-	});
-	}
-    
-    	// incorrect
-	if (payload.substring(2) === 'B6c') {
-		say('Incorrect. Queues are first in first out, meaning it dequeues from the beginning. So 😁 and 👍 are dequeued.').then(() => {
-		sendButton('Done with queues! ', [{title: 'yes ', payload: payload.substring(0,2)+'Bf'}]);
-	});
-	}
-
-    
-    
-    //END STATEMENTS
-	
-	// FINAL QUIZ
-    if (payload==='TTAf' || payload==='TTBf'){
-        say('READY FOR FINAL QUIZ??').then(
-        () => {sendButton('🤩', [{title: 'yes!', payload: 'F1'}]);
-    });
+		url: 'https://i.postimg.cc/yx98r908/2-8.png'
+	 }]).then(() => { sendButton('This one is not very easy. Need help?', [{title: 'Yes 🙂.', payload: payload.substring(0,2)+'A21'}, {title: 'I\'m ok!', payload: payload.substring(0,2)+'A22'}]);   
+	 });  
     }
-	
-	if (payload==='F1'){
-		
-			say('What principle does STACK follow?').then(
-		() => {sendButton('Question', [{title: 'First In First Out', payload: 'F2'}, {title: 'Last In First Out', payload: 'F3'}]);
-				});
-	}
-	
-	if (payload === 'F2') {
-		say('Incorrect. The correct answer is Last In First Out.').then(
-		() => {sendButton('Next Question?', [{title: 'Ready!', payload: 'F4'}]);
-				});
-	}
-	
-	if (payload ==='F3'){
-		say ('Correct!').then(
-		() => {sendButton('Next Question?', [{title: 'Ready!', payload: 'F4'}]);
-				});
-	}
-	
-	if (payload==='F4'){
-		
-			say('What principle does Queue follow?').then(
-		() => {sendButton('Question', [{title: 'First In First Out', payload: 'F5'}, {title: 'Last In First Out', payload: 'F6'}]);
-				});
-	}
-	
-	if (payload === 'F6') {
-		say('Incorrect. The correct answer is First In First Out.');
-		sendButton('Next Question?', [{title: 'Ready!', payload: 'F7'}]);
-	}
-	
-	if (payload ==='F5'){
-		say ('Correct!').then(
-		()=>{sendButton('Next Question?', [{title: 'Ready!', payload: 'F7'}]);
-				});
-	}
-	
-	if (payload==='F7'){
-		
-			say('What data structure is used to solve recursive problems?').then(
-		()=> {sendButton('Question', [{title: 'Stack', payload: 'F8'}, {title: 'Queue', payload: 'F9'}]);
-				});
-	}
-	
-	if (payload === 'F9') {
-		say('Incorrect. The correct answer is Stack. Because in recursive problems, you want to tackle the most fundamental problem and work your way BACKWARD, remember stack is Last In First Out! On the other hand, queues are used to solve sequential problems. \n CONGRATS, YOU HAVE MASTERED STACKS AND QUEUES!!🎉').then(
-		() => {sendButton('restart?', [{title: 'learn it again!', payload: 'restart'},'No']);
-				});
-	}
-	
-	if (payload ==='F8'){
-		say ('Correct! \n CONGRATS, YOU HAVE MASTERED STACKS AND QUEUES!!🎉').then(
-		()=>{sendButton('restart?', [{title: 'learn it again!', payload: 'restart'},'No']);
-				});
+
+	// Euclidea Beta 2-8 steps demostration
+	if (payload.substring(2) === 'A21') {
+		say(['As the final problem, it is not too easy to solve 🎃', 
+			'To understand how it works, you need to first understand the Thale\'s theorem.',
+			'Thales\’s Theorem states that, the diameter of a circle always subtends a right angle.',
+			'Thus we need to construct circles to solve the problem, as below',{
+			attachment: 'image',
+			url: 'https://i.postimg.cc/90PmC20d/2-8.gif'
+		 }]).then(() => { 
+			 sendButton('Have you enjoyed the game?', [{title: 'Absolutely', payload: payload.substring(0,2)+'A22'},{title: 'I want to play again!', payload: payload.substring(0,2)+'A1'}]);   
+		});
 	}
 
-    
-	// GO TO THE LESSON NOT YET LEARNED
-    if (payload === 'TFAf'){
-        say('').then(
-        () => {sendButton('Learn queues now? ', [{title: 'yes', payload: 'TTB0'},'No']);
-        });
-    }
-    if (payload === 'FTBf'){
-        say('').then(
-        () => {sendButton('Learn stacks now? ', [{title: 'yes', payload: 'TTA0'},'No']);
-        });
+	/**
+	 * Ending
+	 */
+	 if (payload.substring(2) === 'A22') {
+	    say(['Geometric construction games are games where you\'ll be asked to construct two-dimensional geometric shapes with a given range of tools',
+	    'There are several tools that you can use: straight edges that help you draw a line, compasses that help you draw a circle, etc.',
+        'Each of them cost differently, and your goal is to find the solution that cost the least.']).then(
+	        () => {});
     }
 };
-
-
-
-
 
 module.exports = {
 	filename: 'helloworld',
